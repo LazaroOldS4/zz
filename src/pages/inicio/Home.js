@@ -18,17 +18,7 @@ export function Home() {
   };
 
   return (
-    <>
-    ombre: Dany
-Nombre: Cambrano  <div>
-        <h1>Página de inicio</h1>
-        <h1>Encender/Apaga: {accion ? "Encendido" : "Apagado"}</h1>
-        <button onClick={encederapagar}>Accion</button>
-      </div>
-      <div className="Datos">
-        <Datos nombre="Dany" apellidos="Cambrano" />
-        <Datos nombre="Alberto" apellidos="Morales" />
-      </div>
-    </>
+    <div>P+agina de inicio</div>
+
   );
 }
