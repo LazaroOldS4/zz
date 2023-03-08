@@ -37,7 +37,7 @@ export function FormPersonas() {
       <div class="card">
         <div class="card-header">Datos personales</div>
         <div class="card-body">
-          <form class="row g-3" onSubmit={Enviar} id="personales">
+          <form class="row g-3 p-2" onSubmit={Enviar} id="personales">
             <div class="mb-3 row">
               <label for="curp" class="col-sm-2 col-form-label">
                 Curp
