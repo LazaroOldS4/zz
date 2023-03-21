@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Axios from "../../../services/Axios";
-
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export function AdminPersonas() {
   const [personas, setPersonas] = useState([]);
+  
+
+  //usar la navegación por defecto del react-router-dom
+  const navigate = new useNavigate();
 
   const consultarPersonas = async () => {
     const consultar = await Axios.get("/personas");
     console.log(consultar.data)
     setPersonas(consultar.data);
   };
+
 
   const deletePersonas = async (id) => {
     if (window.confirm("¿Esta seguro de eliminar a la persona?")) {
@@ -63,7 +67,10 @@ export function AdminPersonas() {
                     <td>{persona.sexo}</td>
                     <td>{persona.telefono}</td>
                     <td>
-                      <button type="button" class="btn btn-info">
+                      <button type="button" 
+                      class="btn btn-info"
+                      onClick={()=>navigate(`/formpersona/${persona._id}`)}
+                      >
                         Editar
                       </button>
                     </td>

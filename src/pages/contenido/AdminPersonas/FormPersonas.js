@@ -1,37 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "../../../services/Axios";
 
-export function FormPersonas() {
+import { useParams, useNavigate } from "react-router-dom";
 
-  const variables={
-    
-    curp:"",
-    nombre:"",
-    apellidos:"",
-    sexo:"",
-    telefono:""
-  }
+export function FormPersonas() {
+  const variables = {
+    _id: "",
+    curp: "",
+    nombre: "",
+    apellidos: "",
+    sexo: "",
+    telefono: "",
+  };
 
   const [personas, setPersonas] = useState(variables);
+  //Variable para obtener los datos del parámetro especificado en admin
+  const params = useParams();
+  const navigate=useNavigate();
 
-  const onChange=(e)=>{
-    const {name,value}=e.target;
-    setPersonas({...personas,[name]:value})
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setPersonas({ ...personas, [name]: value });
+  };
+
+  const guardarDatos = (e) => {
+    const formulario = document.getElementById("personales");
+    const formData = new FormData(formulario);
+
+    /*Axios.post("/persona", formData).then(() => {
+      console.log("Registros guardados exitosamente");
+    });*/
+    console.log(formData);
+  };
+
+  const obtenerPersona = async (id) => {
+    const persona = await Axios.get("/persona/" + id);
+    setPersonas(persona.data);
+    console.log(persona);
+  };
+
+  const updatePersona=async()=>{
+    await Axios.patch(`/persona/${params.id}`, personas).then(
+      ()=>{
+        console.log("Datos actualizados correctamente")
+      }
+    )
+    navigate("/persona");
   }
 
-  const GuardarDatos=async()=>{
-    //const formulario=document.getElementById("personales");
-    //const formData=new FormData(formulario);
-    await Axios.post('/persona',personas).then(()=>{
-      console.log("Registros guardados")
-    })
-   console.log(personas);
-  }
-
-  const Enviar=(e)=>{
+  const Enviar = (e) => {
     e.preventDefault();
-    GuardarDatos();
-  }
+if(params._id===""){
+  guardarDatos();
+}else{
+  updatePersona();
+}
+    
+  };
+
+  useEffect(() => {
+    obtenerPersona(params.id);
+  }, [params.id]);
+
   return (
     <div className="container-fluid p-3">
       <div class="card">
@@ -44,7 +74,7 @@ export function FormPersonas() {
               </label>
               <div class="col-sm-10">
                 <input
-                name="curp"
+                  name="curp"
                   type="text"
                   class="form-control"
                   id="curp"
@@ -121,7 +151,7 @@ export function FormPersonas() {
 
             <div class="col-12">
               <button class="btn btn-primary" type="submit">
-                Guardar
+                {personas._id==="" ? "Guardar":"Actualizar"}
               </button>
             </div>
           </form>
