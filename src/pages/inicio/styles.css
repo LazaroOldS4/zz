@@ -1,0 +1,28 @@
+.message-image {
+    animation-name: slide-in;
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes slide-in {
+    0% { transform: translateY(100%); opacity: 0; }
+    100% { transform: translateY(0%); opacity: 1; }
+  }
+  body {
+    background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fes%2Fimages%2Fsearch%2Ffondo%2520de%2520pantalla%2F&psig=AOvVaw0yZc_Mzog1UvVzJC9Dy9Q4&ust=1680188843743000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCIjmjrC1gf4CFQAAAAAdAAAAABAJ');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .app-container {
+    background-color: #916161;
+    padding: 20px;
+  }
+  
+  .app-image {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+  }
+  
+  

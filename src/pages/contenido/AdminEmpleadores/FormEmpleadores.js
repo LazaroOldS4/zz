@@ -1,65 +1,62 @@
 import React, { useState, useEffect } from "react";
 import Axios from "../../../services/Axios";
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams} from "react-router-dom";
 
-export function FormPersonas() {
+export function FormEmpleadores() {
   const variables = {
-    _id: "",
     curp: "",
     nombre: "",
     apellidos: "",
+    fechana: "",
     sexo: "",
     telefono: "",
-  };
+    email: "",
+    password: ""
+  }
 
-  const [personas, setPersonas] = useState(variables);
+  const [empleadores, setEmpleadores] = useState(variables);
   //Variable para obtener los datos del parámetro especificado en admin
   const params = useParams();
-  const navigate=useNavigate();
 
   const onChange = (e) => {
     const { name, value } = e.target;
-    setPersonas({ ...personas, [name]: value });
+    setEmpleadores({ ...empleadores, [name]: value });
   };
 
   const guardarDatos = (e) => {
     const formulario = document.getElementById("personales");
     const formData = new FormData(formulario);
 
-    /*Axios.post("/persona", formData).then(() => {
+    Axios.post("/empleador", empleadores).then(() => {
       console.log("Registros guardados exitosamente");
-    });*/
+    });
     console.log(formData);
   };
 
-  const obtenerPersona = async (id) => {
-    const persona = await Axios.get("/persona/" + id);
-    setPersonas(persona.data);
-    console.log(persona);
+  const obtenerEmpleador = async (id) => {
+    const empleador = await Axios.get("/empleador/" + id);
+    setEmpleadores(empleador.data);
+    console.log(empleador);
   };
 
-  const updatePersona=async()=>{
-    await Axios.patch(`/persona/${params.id}`, personas).then(
+  const updateEmpleador=async()=>{
+    await Axios.patch(`/empleador/${params.id}`, empleadores).then(
       ()=>{
         console.log("Datos actualizados correctamente")
       }
     )
-    navigate("/persona");
   }
 
   const Enviar = (e) => {
     e.preventDefault();
-if(params._id===""){
+
   guardarDatos();
-}else{
-  updatePersona();
-}
-    
   };
+  
 
   useEffect(() => {
-    obtenerPersona(params.id);
+    obtenerEmpleador(params.id);
   }, [params.id]);
 
   return (
@@ -78,8 +75,8 @@ if(params._id===""){
                   type="text"
                   class="form-control"
                   id="curp"
-                  placeholder="Ingresa la matricula"
-                  value={personas.curp}
+                  placeholder="Ingrese su curp"
+                  value={empleadores.curp}
                   onChange={onChange}
                 />
               </div>
@@ -94,8 +91,8 @@ if(params._id===""){
                   class="form-control"
                   name="nombre"
                   id="nombre"
-                  placeholder="Ingresa tu nombre"
-                  value={personas.nombre}
+                  placeholder="Ingrese su nombre"
+                  value={empleadores.nombre}
                   onChange={onChange}
                 />
               </div>
@@ -111,7 +108,23 @@ if(params._id===""){
                   name="apellidos"
                   id="apellidos"
                   placeholder="Ingresa los apellidos"
-                  value={personas.apellidos}
+                  value={empleadores.apellidos}
+                  onChange={onChange}
+                />
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="fechana" class="col-sm-2 col-form-label">
+                Fecha de Nacimiento
+              </label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="fechana"
+                  id="fechana"
+                  placeholder="Ingrese su Fecha de Nacimiento"
+                  value={empleadores.fechana}
                   onChange={onChange}
                 />
               </div>
@@ -127,7 +140,7 @@ if(params._id===""){
                   name="sexo"
                   id="sexo"
                   placeholder="Ingresa sexo"
-                  value={personas.sexo}
+                  value={empleadores.sexo}
                   onChange={onChange}
                 />
               </div>
@@ -143,15 +156,64 @@ if(params._id===""){
                   name="telefono"
                   id="telefono"
                   placeholder="Ingresa tu numero de telefono"
-                  value={personas.telefono}
+                  value={empleadores.telefono}
                   onChange={onChange}
                 />
               </div>
             </div>
+            <div class="mb-3 row">
+              <label for="email" class="col-sm-2 col-form-label">
+                Correo Electronico
+              </label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="email"
+                  id="email"
+                  placeholder="Ingrese su Correo Electronico"
+                  value={empleadores.email}
+                  onChange={onChange}
+                />
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="password" class="col-sm-2 col-form-label">
+                Contraseña
+              </label>
+              <div class="col-sm-10">
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  id="password"
+                  placeholder="Ingrese su Contraseña"
+                  value={empleadores.password}
+                  onChange={onChange}
+                />
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="password" class="col-sm-2 col-form-label">
+                Contraseña
+              </label>
+              <div class="col-sm-10">
+                <input
+                  type="password"
+                  class="form-control"
+                  name="repeatpassword"
+                  id="password"
+                  placeholder="Ingrese su Contraseña"
+                  value={empleadores.password}
+                  onChange={onChange}
+                />
+              </div>
+            </div>
+            
 
             <div class="col-12">
               <button class="btn btn-primary" type="submit">
-                {personas._id==="" ? "Guardar":"Actualizar"}
+                {empleadores.curp==="" ? "Guardar":"Actualizar"}
               </button>
             </div>
           </form>

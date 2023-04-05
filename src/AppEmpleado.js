@@ -3,7 +3,7 @@ import {BrowserRouter} from "react-router-dom";
 import {Rutas} from "./routes"
 
 
-export default function AppAlumno() {
+export default function AppEmpleado() {
   return (
    <BrowserRouter>
     <Rutas/>

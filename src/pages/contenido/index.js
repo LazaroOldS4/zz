@@ -1,2 +1,2 @@
-export * from "./FormAlumno";
-export * from "./AdminPersonas";
+export * from "./AdminEmpleadores";
+export * from "./AdminEmpleados";
