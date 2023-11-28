@@ -64,7 +64,7 @@ export function FormEmpleados() {
   return (
     <div className="container-fluid p-3">
       <div class="card">
-        <div class="card-header">Datos personales</div>
+        <div class="card-header"><h4>Datos personales</h4></div>
         <div class="card-body">
           <form class="row g-3 p-2" onSubmit={Enviar} id="personales">
             <div class="mb-3 row">

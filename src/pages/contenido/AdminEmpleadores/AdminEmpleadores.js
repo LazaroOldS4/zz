@@ -45,7 +45,7 @@ export function AdminEmpleadores() {
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">CURP</th>
+                
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellidos</th>
                 <th scope="col">Fecha de Nacimiento</th>
@@ -59,17 +59,18 @@ export function AdminEmpleadores() {
                 return (
                   <tr>
                     <th scope="row">1</th>
-                    <td>{empleador.curp}</td>
+                    
                     <td>{empleador.nombre}</td>
                     <td>{empleador.apellidos}</td>
                     <td>{empleador.fechana}</td>
                     <td>{empleador.sexo}</td>
                     <td>{empleador.telefono}</td>
                     <td>{empleador.email}</td>
-                    <td>{empleador.password}</td>
                     <td>
                       <button type="button" class="btn btn-info">
+                      <Link class="dropdown-item" to="/formempleador">
                         Editar
+                      </Link>
                       </button>
                     </td>
                     <td>

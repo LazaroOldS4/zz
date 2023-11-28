@@ -1,28 +1,87 @@
 .message-image {
-    animation-name: slide-in;
-    animation-duration: 4s;
-    animation-fill-mode: forwards;
+  animation-name: slide-in;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+p {
+  font-family: 'Trebuchet MS';
+  font-size: x-large;
+  color: rgb(79, 47, 57);
+}
+
+.message-text {
+  font-family: Tahoma;
+  color: black;
+  font-weight: bold;
+  font-style: inherit;
+  font-size: x-large;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateY(100%);
+    opacity: 1;
   }
-  
-  @keyframes slide-in {
-    0% { transform: translateY(100%); opacity: 0; }
-    100% { transform: translateY(0%); opacity: 1; }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
   }
-  body {
-    background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fes%2Fimages%2Fsearch%2Ffondo%2520de%2520pantalla%2F&psig=AOvVaw0yZc_Mzog1UvVzJC9Dy9Q4&ust=1680188843743000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCIjmjrC1gf4CFQAAAAAdAAAAABAJ');
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+}
+body {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.app-container {
+  background-color: rgba(109, 120, 202, 0.85);
   
-  .app-container {
-    background-color: #916161;
-    padding: 20px;
-  }
-  
-  .app-image {
-    width: 100%;
-    max-width: 500px;
-    margin-top: 20px;
-  }
-  
-  
+}
+
+.app-image {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20px;
+}
+
+.text-container {
+  text-align: center;
+  background-color: aqua;
+  height: auto;
+  font-size: xx-large;
+  font-weight: 900;
+  color: black;
+}
+
+.header {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.select-image-btn {
+  background-color: transparent;
+  border: none;
+  color: #0f0f0f;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s, box-shadow 0.3s;
+}
+
+.select-image-btn:hover {
+  color: #ff4081;
+  /* Cambia el color a rosado al pasar el puntero */
+  box-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
+  /* Añade una sombra al pasar el puntero */
+}
+
+.selected-image-container {
+  margin-bottom: 30px;
+}
+
+.image-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+

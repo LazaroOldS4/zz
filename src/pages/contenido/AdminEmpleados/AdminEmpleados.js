@@ -68,7 +68,7 @@ export function AdminEmpleados() {
                     <td>{empleado.trabajo}</td>
                     <td>{empleado.telefono}</td>
                     <td>{empleado.email}</td>
-                    <td>{empleado.password}</td>
+
                     <td>
                       <button type="button" class="btn btn-info">
                         Editar

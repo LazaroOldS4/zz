@@ -1,0 +1,74 @@
+.servemp {
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 5px;
+}
+
+.row{
+    background-color: aqua;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: medium;
+}
+
+.servemp {
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+.row {
+    background-color: aqua;
+    margin-bottom: 15px;
+}
+
+.card-text {
+    font-size: medium;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.select-image-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-image-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.image-container {
+    position: relative;
+    height: 500px;
+}
+
+.image-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.selected-image-container {
+    margin-right: 10px;
+}
+
+.message-image {
+    width: 400px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.message-image.selected {
+    border: 2px solid #2196F3;
+}

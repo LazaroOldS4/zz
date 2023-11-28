@@ -1,5 +1,5 @@
 import Axios from "axios";
 
 export default Axios.create({
-    baseURL:"http://127.0.0.1:4000/api/V1"
+    baseURL:"https://jzm4hkkh-4000.usw3.devtunnels.ms/"
 })
