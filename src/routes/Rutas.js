@@ -1,16 +1,11 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from '../layouts';
-import {
-    Servicios,
-    Footer,
-    Home,
-    Solicitudes,
-    Notificacion,
-    Buscador,
-  } from '../pages';
+import {Servicios,Footer,Home,Solicitudes,Notificacion,Buscador} from '../pages';
 import Mensajeria from '../pages/contenido/pagina/Mensajeria';
-import Perfil from '../pages/contenido/pagina/Perfil';
+import Amistades from '../pages/contenido/pagina/Amistades';
+
+
   
 
 export function Rutas() {
@@ -30,7 +25,8 @@ export function Rutas() {
       <Route path='/solicitudes' element={loadLayouts(Layout, Solicitudes)} />
       <Route path='/notificacion' element={loadLayouts(Layout, Notificacion)} />
       <Route path='/buscador' element={loadLayouts(Layout, Buscador)} />
-      <Route path='/perfil' element={loadLayouts(Layout, Perfil)} />
+      <Route path='/amistad' element={loadLayouts(Layout, Amistades)} />
+      
 
     </Routes>
   );

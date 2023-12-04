@@ -5,7 +5,7 @@ export function Menu() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <img className="message-image" src="/zetta.jpeg" style={{ width: '55px' }} />
+        <img className="message-image" src="/zetta.jpeg" style={{ width: '55px', height: '25px' }} />
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -19,13 +19,21 @@ export function Menu() {
                 <Link className="nav-link active" aria-current="page" to="/">CENTRO DE PUBLICACIONES</Link>
               </li>
               <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/amistad">Amistad</Link>
+              </li>
+              <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/mensajes">
                   MENSAJES
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/perfil">
-                  Perfil
+                  
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/solicitudes">
+                  Solicitudes
                 </Link>
               </li>
               <li className="nav-item dropdown">
