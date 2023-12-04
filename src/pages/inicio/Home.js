@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons'; // Importa el icono de basura
+import Modal from 'react-modal';
 
 export function Home() {
   const [imageList, setImageList] = useState([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+  const [comment, setComment] = useState('');
+  const [selectedCommentIndex, setSelectedCommentIndex] = useState(null);
 
   useEffect(() => {
     const storedImages = JSON.parse(localStorage.getItem('imageList')) || [];
-    setImageList(storedImages);
+    setImageList(storedImages.map(image => ({ ...image, comments: [] })));
   }, []);
 
   const handleImageChange = (event) => {
@@ -18,8 +24,8 @@ export function Home() {
 
       reader.onload = () => {
         const imageBase64 = reader.result;
-        setImageList((prevImages) => [...prevImages, imageBase64]);
-        localStorage.setItem('imageList', JSON.stringify([...imageList, imageBase64]));
+        setImageList((prevImages) => [...prevImages, { url: imageBase64, reacted: false, comments: [] }]);
+        localStorage.setItem('imageList', JSON.stringify([...imageList, { url: imageBase64, reacted: false, comments: [] }]));
       };
 
       reader.readAsDataURL(file);
@@ -39,69 +45,130 @@ export function Home() {
     }
   };
 
-  // Dividir las imágenes en grupos de 3 para renderizarlas en filas
-  const groupedImages = [];
-  for (let i = 0; i < imageList.length; i += 3) {
-    groupedImages.push(imageList.slice(i, i + 3));
-  }
+  const handleImageDoubleClick = (index) => {
+    const updatedImages = imageList.map((image, i) => (i === index ? { ...image, reacted: !image.reacted } : image));
+    setImageList(updatedImages);
+    localStorage.setItem('imageList', JSON.stringify(updatedImages));
+
+    setTimeout(() => {
+      setSelectedImageIndex(null);
+    }, 500);
+  };
+
+  const openCommentModal = (index) => {
+    setIsCommentModalOpen(true);
+    setSelectedCommentIndex(index);
+    setComment('');
+  };
+
+  const closeCommentModal = () => {
+    setIsCommentModalOpen(false);
+    setSelectedCommentIndex(null);
+    setComment('');
+  };
+
+  const addComment = () => {
+    if (comment.trim() !== '' && selectedCommentIndex !== null) {
+      setImageList((prevImages) => {
+        const updatedImages = [...prevImages];
+        updatedImages[selectedCommentIndex].comments.push(comment);
+        localStorage.setItem('imageList', JSON.stringify(updatedImages));
+        return updatedImages;
+      });
+      setComment('');
+    }
+  };
+
+  const deleteComment = (commentIndex) => {
+    setImageList((prevImages) => {
+      const updatedImages = [...prevImages];
+      const currentImage = { ...updatedImages[selectedCommentIndex] };
+      currentImage.comments = currentImage.comments.filter((_, index) => index !== commentIndex);
+      updatedImages[selectedCommentIndex] = currentImage;
+      localStorage.setItem('imageList', JSON.stringify(updatedImages));
+      return updatedImages;
+    });
+  };
+
+const heartIcon = <FontAwesomeIcon icon={faHeart} style={{ fontSize: '1.5em' }} />;
+
 
   return (
-    <div className="message-container">
-      <div className="rectangulo">
-        <div className="servemp" style={{ textAlign: 'center' }}>
-          {/* Mantén la imagen aquí */}
-          <img className="message-image" src="/zetta.jpeg" style={{ width: '400px', height: '150px' }} />
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <p style={{ fontFamily: 'Trebuchet MS', fontSize: 'x-large', color: 'rgb(79, 47, 57)', margin: 0 }}>
-            
-          </p>
-          {/* Botones para subir y eliminar fotos en la misma línea, a la derecha */}
+    <div className="instagram-container">
+      <div className="header">
+     
+        <div className="user-actions">
+          <button className="upload-btn" onClick={() => document.getElementById('imageInput').click()}>
+            Subir Foto
+          </button>
           {selectedImageIndex !== null && (
-            <button className="delete-image-btn" onClick={handleDeleteImage}>
+            <button className="delete-btn" onClick={handleDeleteImage}>
               Eliminar Foto
             </button>
           )}
-          <button
-            className="select-image-btn"
-            onClick={() => document.getElementById('imageInput').click()}
-          >
-            Seleccionar foto
-          </button>
-          <input
-            type="file"
-            id="imageInput"
-            accept="image/*"
-            style={{ display: 'none' }}
-            onChange={handleImageChange}
-          />
         </div>
       </div>
-      <div className="app-container">
-        <div className="text-container">
-          <p>Tus Publicaciones</p>
-        </div>
-        {groupedImages.map((row, rowIndex) => (
-          <div key={rowIndex} className="image-row">
-            {row.map((image, colIndex) => (
-              <div key={colIndex} className="selected-image-container">
-                <img
-                  className={`message-image ${selectedImageIndex === rowIndex * 3 + colIndex ? 'selected' : ''}`}
-                  src={image}
-                  alt={`Selected ${rowIndex * 3 + colIndex + 1}`}
-                  style={{ width: '300px', height: '300px', objectFit: 'cover' }}
-                  onClick={() => handleSelectImage(rowIndex * 3 + colIndex)}
-                />
+
+      <div className="photo-grid">
+        {imageList.map((image, index) => (
+          <div
+            key={index}
+            className={`photo-item ${selectedImageIndex === index ? 'selected' : ''}`}
+            onClick={() => handleSelectImage(index)}
+            onDoubleClick={() => handleImageDoubleClick(index)}
+          >
+            {image.reacted && (
+              <div className="reaction-overlay">
+                {heartIcon}
               </div>
-            ))}
+            )}
+            <img src={image.url} alt={`Photo ${index + 1}`} />
+            {selectedImageIndex === index && (
+              <button className="comment-button" onClick={() => openCommentModal(index)}>
+                Comentar
+              </button>
+            )}
           </div>
         ))}
-        <div style={{ position: 'relative', height: '500px' }}>
-          {/* Otro contenido del componente */}
-        </div>
       </div>
+
+      <input
+        type="file"
+        id="imageInput"
+        accept="image/*"
+        style={{ display: 'none' }}
+        onChange={handleImageChange}
+      />
+
+      {/* Modal de comentarios */}
+      <Modal
+        isOpen={isCommentModalOpen}
+        onRequestClose={closeCommentModal}
+        contentLabel="Comentarios"
+      >
+        <h2>Comentarios</h2>
+        <ul>
+          {imageList[selectedCommentIndex]?.comments.map((c, i) => (
+            <li key={i}>
+              {c}
+              <button onClick={() => deleteComment(i)}>
+                <FontAwesomeIcon icon={faTrash} /> {/* Icono de basura */}
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div>
+          <input
+            type="text"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Añadir comentario"
+          />
+          <button onClick={addComment}>Comentar</button>
+        </div>
+        <button onClick={closeCommentModal}>Cerrar</button>
+      </Modal>
     </div>
   );
-}
+};
 
-export default Home;

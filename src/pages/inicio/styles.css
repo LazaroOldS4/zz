@@ -1,87 +1,220 @@
-.message-image {
-  animation-name: slide-in;
-  width: fit-content;
-  animation-fill-mode: forwards;
-}
-
-p {
-  font-family: 'Trebuchet MS';
-  font-size: x-large;
-  color: rgb(79, 47, 57);
-}
-
-.message-text {
-  font-family: Tahoma;
-  color: black;
-  font-weight: bold;
-  font-style: inherit;
-  font-size: x-large;
-}
-
-@keyframes slide-in {
-  0% {
-    transform: translateY(100%);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-}
-body {
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.app-container {
-  background-color: rgba(109, 120, 202, 0.85);
-  
-}
-
-.app-image {
-  width: 100%;
-  max-width: 500px;
-  margin-top: 20px;
-}
-
-.text-container {
-  text-align: center;
-  background-color: aqua;
-  height: auto;
-  font-size: xx-large;
-  font-weight: 900;
-  color: black;
+.instagram-container {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .header {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.select-image-btn {
-  background-color: transparent;
-  border: none;
-  color: #0f0f0f;
-  font-size: 16px;
-  cursor: pointer;
-  transition: color 0.3s, box-shadow 0.3s;
-}
-
-.select-image-btn:hover {
-  color: #ff4081;
-  /* Cambia el color a rosado al pasar el puntero */
-  box-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
-  /* Añade una sombra al pasar el puntero */
-}
-
-.selected-image-container {
-  margin-bottom: 30px;
-}
-
-.image-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+
+.user-actions button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #3897f0;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.upload-btn {
+  background-color: #3897f0;
+}
+
+.delete-btn {
+  background-color: #ed4956;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 20px;
+}
+
+.photo-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.selected::before {
+  content: '\2713';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 24px;
+  color: #ffffff00;
+}
+
+/* Nuevos estilos agregados */
+.reaction-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #ed4956;
+  animation: heartbeat 0.8s ease-in-out;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.2);
+  }
+  20% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+.photo-item.selected::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 95%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 15px;
+  background-color: #ffffff;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%, 50% 70%);
+}
+
+/* ... Otros estilos ... */
+/* styles.css */
+
+/* ... (otros estilos) ... */
+
+.comment-button {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #3897f0;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ... (otros estilos) ... */
+/* styles.css */
+
+/* ... (otros estilos) ... */
+
+.comment-button {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #ff5a5f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.comment-button:hover {
+  background-color: #e04348;
+}
+
+/* Modal styles */
+.ReactModal__Content {
+  /* ... (otros estilos) ... */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+h2 {
+  color: #333;
   margin-bottom: 20px;
 }
 
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #555;
+}
+
+.comment-input-container {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.comment-input {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+.comment-submit-btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #3897f0;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.comment-submit-btn:hover {
+  background-color: #2874a6;
+}
+
+.comment-close-btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.comment-close-btn:hover {
+  background-color: #999;
+}
+
+/* ... (otros estilos para los comentarios ventana) ... */
